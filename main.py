@@ -20,6 +20,8 @@ def upload():
     if request.method == "POST":
         try:
             f = request.files["file"]
+            if f.filename.split('.')[-1] != 'mp3':
+                return "Invalid file format. Only .mp3 files are allowed."
             file_name = upload_file_s3(f)
             text = do_transcribe(file_name)
             return render_template("index.html", filename=file_name, text=text)
