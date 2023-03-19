@@ -20,7 +20,23 @@
         <button type="submit">Submit</button>
     </form>
 
+
+    {% if input %}
+    <h2>Translate</h2>
     <p>Input: {{input}}</p>
+    {% endif %}
+    {% if lang %}
     <p>Selected Language: {{lang}}</p>
+    {% endif %}
+    {% if translate %}
+    <p>Translated Text: {{translate}}</p>
+    {% endif %}
+
+    {% if sentiment %}
+    <h2>sentiment Analysis</h2>
+    <p>Positive Sentiment = {{sentiment[0]}}</p>
+    <p>Negative Sentiment = {{sentiment[1]}}</p>
+    <p>Neutral Sentiment = {{sentiment[2]}}</p>
+    {% endif %}
 </body>
 </html>

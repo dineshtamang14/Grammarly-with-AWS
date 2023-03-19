@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from translate import *
+from sentiment import *
 app = Flask(__name__)
 
 @app.route("/")
@@ -14,7 +15,9 @@ def main():
         selected_lang = request.form.get("selected_language", None)
         if selected_lang is not None:
             lang = selected_lang
-        return render_template("index.html", input=input, lang=lang)        
+            translate = do_translate(input)
+            sentiment = do_sentiment_analysis(input)
+        return render_template("index.html", input=input, lang=lang, translate=translate, sentiment=sentiment)        
 
 
 if __name__ == "__main__":
