@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for
 from translate import *
 from sentiment import *
 from pos import *
@@ -18,10 +18,15 @@ def index():
 @app.route("/upload", methods=["POST", "GET"])
 def upload():
     if request.method == "POST":
-        f = request.files["file"]
-        file_name = upload_file_s3(f)
-        text = do_transcribe(file_name)
-        return render_template("index.html", filename=file_name, text=text)
+        try:
+            f = request.files["file"]
+            file_name = upload_file_s3(f)
+            text = do_transcribe(file_name)
+            return render_template("index.html", filename=file_name, text=text)
+        except FileNotFoundError:
+            return redirect(url_for("index"), 301)
+    else:
+        return redirect(url_for("index"), 301)
 
 
 @app.route("/audio", methods=["GET"])

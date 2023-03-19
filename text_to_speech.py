@@ -1,8 +1,6 @@
 import boto3 
 
 
-
-
 def text_to_speech(text: str):
     polly = boto3.client("polly")
     text = polly.synthesize_speech(Text=text, OutputFormat="mp3", VoiceId="Joanna")
