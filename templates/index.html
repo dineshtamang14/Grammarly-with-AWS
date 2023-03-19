@@ -9,7 +9,7 @@
 <body>
     <h1>Grammerly with AWS</h1>
 
-    <form action="" method="post">
+    <form action="{{ url_for('main') }}" method="post">
         <input type="text" name="input_text" id="input_text" placeholder="input text">
         <select name="selected_language" id="mySelect">
             <option value="es">Spanish</option>
@@ -55,6 +55,17 @@
         <li>{{key}}: {{entities[key]}}</li>
         {% endfor %}
     </ul>
+    {% endif %}
+
+    <h2>Transcription</h2>
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+        <span>Choose file to be uploaded</span>
+        <input type="file" name="file" value="file">
+        <input type="submit">
+    </form>
+
+    {% if filename %}
+    <p>Uploaded File: {{filename}}</p>
     {% endif %}
 </body>
 </html>

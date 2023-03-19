@@ -3,6 +3,7 @@ from translate import *
 from sentiment import *
 from pos import *
 from entity import *
+from upload import *
 
 
 app = Flask(__name__)
@@ -10,6 +11,14 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/upload", methods=["POST", "GET"])
+def upload():
+    if request.method == "POST":
+        f = request.files["file"]
+        file_name = upload_file_s3(f)
+        return render_template("index.html", filename=file_name)
 
 
 @app.route("/", methods=["POST", "GET"])
