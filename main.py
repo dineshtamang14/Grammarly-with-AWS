@@ -4,6 +4,7 @@ from sentiment import *
 from pos import *
 from entity import *
 from upload import *
+from transcribe import *
 
 
 app = Flask(__name__)
@@ -18,7 +19,8 @@ def upload():
     if request.method == "POST":
         f = request.files["file"]
         file_name = upload_file_s3(f)
-        return render_template("index.html", filename=file_name)
+        text = do_transcribe(file_name)
+        return render_template("index.html", filename=file_name, text=text)
 
 
 @app.route("/", methods=["POST", "GET"])

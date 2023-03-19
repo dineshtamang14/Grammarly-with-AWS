@@ -57,7 +57,7 @@
     </ul>
     {% endif %}
 
-    <h2>Transcription</h2>
+    <h2>Transcribe</h2>
     <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
         <span>Choose file to be uploaded</span>
         <input type="file" name="file" value="file">
@@ -66,6 +66,10 @@
 
     {% if filename %}
     <p>Uploaded File: {{filename}}</p>
+    {% endif %}
+
+    {% if text %}
+    <p>Text: {{text}}</p>
     {% endif %}
 </body>
 </html>
