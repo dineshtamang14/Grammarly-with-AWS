@@ -1,7 +1,7 @@
 import boto3
 
 
-def do_sentiment_analysis(input):
+def do_sentiment_analysis(input: str) -> list:
     comprehend = boto3.client(service_name="comprehend", region_name="us-east-1")
     result = comprehend.detect_sentiment(Text=input, LanguageCode="en")
 

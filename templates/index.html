@@ -33,10 +33,19 @@
     {% endif %}
 
     {% if sentiment %}
-    <h2>sentiment Analysis</h2>
+    <h2>Sentiment Analysis</h2>
     <p>Positive Sentiment = {{sentiment[0]}}</p>
     <p>Negative Sentiment = {{sentiment[1]}}</p>
     <p>Neutral Sentiment = {{sentiment[2]}}</p>
+    {% endif %}
+
+    {% if part_of_speech %}
+    <h2>Part of Speech</h2>
+    <ul>
+        {% for key in part_of_speech %}
+        <li>{{key}}: {{part_of_speech[key]}}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
 </body>
 </html>
