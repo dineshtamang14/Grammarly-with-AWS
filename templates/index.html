@@ -47,5 +47,14 @@
         {% endfor %}
     </ul>
     {% endif %}
+
+    {% if entities %}
+    <h2>Detected Entities</h2>
+    <ul>
+        {% for key in entities %}
+        <li>{{key}}: {{entities[key]}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

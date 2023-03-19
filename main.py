@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from translate import *
 from sentiment import *
 from pos import *
+from entity import *
 
 
 app = Flask(__name__)
@@ -21,7 +22,8 @@ def main():
             translate = do_translate(input)
             sentiment = do_sentiment_analysis(input)
             part_of_speech = detect_pos(input)
-        return render_template("index.html", input=input, lang=lang, translate=translate, sentiment=sentiment, part_of_speech=part_of_speech)        
+            entities = detect_entity(input)
+        return render_template("index.html", input=input, lang=lang, translate=translate, sentiment=sentiment, part_of_speech=part_of_speech, entities=entities)        
 
 
 if __name__ == "__main__":
