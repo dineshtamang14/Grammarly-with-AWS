@@ -1,15 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from translate import *
 from sentiment import *
 from pos import *
 from entity import *
 from upload import *
 from transcribe import *
+from text_to_speech import *
 
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
 
@@ -23,6 +24,12 @@ def upload():
         return render_template("index.html", filename=file_name, text=text)
 
 
+@app.route("/audio", methods=["GET"])
+def serve_audio():
+    filename = "output.mp3"
+    return send_file(filename, mimetype='audio/mpeg', as_attachment=True)
+
+
 @app.route("/", methods=["POST", "GET"])
 def main():
     if request.method == "POST":
@@ -34,7 +41,8 @@ def main():
             sentiment = do_sentiment_analysis(input)
             part_of_speech = detect_pos(input)
             entities = detect_entity(input)
-        return render_template("index.html", input=input, lang=lang, translate=translate, sentiment=sentiment, part_of_speech=part_of_speech, entities=entities)        
+            p = text_to_speech(input)
+        return render_template("index.html", input=input, lang=lang, translate=translate, sentiment=sentiment, part_of_speech=part_of_speech, entities=entities, p=p)        
 
 
 if __name__ == "__main__":
