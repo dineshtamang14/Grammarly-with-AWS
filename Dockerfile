@@ -1,7 +1,10 @@
 FROM python:3.9.5-buster
-WORKDIR /app 
-COPY requirements .
-RUN pip3 install -r --no-cache-dir requirements.txt
+WORKDIR /usr/app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 COPY . .
-EXPOSE 8000   
-CMD ["gunicorn", "wsgi:app"]
+ENV AWS_ACCESS_KEY_ID=your_access_key \
+    AWS_SECRET_ACCESS_KEY=your_secret_key \
+    AWS_DEFAULT_REGION=us-west-2
+EXPOSE 5000   
+CMD ["python", "main.py"]

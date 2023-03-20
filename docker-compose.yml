@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+  grammerly:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: grammerly
+    networks: 
+      - grammerly-network
+    volumes:
+      - ~/.aws:/usr/app
+
+  nginx:
+    depends_on:
+      - grammerly
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - grammerly-network
+    
+networks:
+  grammerly-network:
+    driver: bridge
